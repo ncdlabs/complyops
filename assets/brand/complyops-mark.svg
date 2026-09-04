@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">ComplyOps</title>
+  <path fill="#21a4f3" d="M32 3 56 12v17c0 15.7-9.8 26.8-24 32C17.8 55.8 8 44.7 8 29V12L32 3Z"/>
+  <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="7" d="m19 31 9 9 18-20"/>
+</svg>

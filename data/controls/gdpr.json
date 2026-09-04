@@ -1,0 +1,1171 @@
+{
+    "framework": "gdpr",
+    "version": "1.1.0",
+    "controls": [
+        {
+            "id": "GDPR-CONSENT-001",
+            "title": "Consent mechanism exists",
+            "description": "A consent mechanism must be available for visitors where required.",
+            "rationale": "Visitors must be able to grant or withhold consent for nonessential processing.",
+            "category": "consent",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "consent"
+            ],
+            "recommended_value": "Consent banner or equivalent CMP is present and functional.",
+            "test_key": "consent.mechanism_present",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-002",
+            "title": "Nonessential scripts are blocked before consent",
+            "description": "Nonessential scripts and tags must not execute before the visitor grants the required consent.",
+            "rationale": "Loading trackers before consent can process personal data without a lawful basis.",
+            "category": "consent",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "consent",
+                "google_analytics",
+                "google_tag_manager"
+            ],
+            "recommended_value": "No nonessential scripts execute before consent.",
+            "test_key": "consent.nonessential_blocked_pre_consent",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-003",
+            "title": "Analytics consent defaults to denied",
+            "description": "Analytics consent must default to denied where a consent mechanism is in use.",
+            "rationale": "Analytics should be opt-in rather than enabled by default.",
+            "category": "consent",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "consent",
+                "google_analytics"
+            ],
+            "recommended_value": "analytics_storage defaults to denied.",
+            "test_key": "consent.analytics_default_denied",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-004",
+            "title": "Marketing consent defaults to denied",
+            "description": "Marketing and advertising consent must default to denied.",
+            "rationale": "Advertising signals should not be enabled before explicit consent.",
+            "category": "consent",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "consent"
+            ],
+            "recommended_value": "Marketing and advertising categories default to denied.",
+            "test_key": "consent.marketing_default_denied",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-005",
+            "title": "Consent can be withdrawn",
+            "description": "Visitors must be able to withdraw or change consent after it was granted.",
+            "rationale": "Consent must be as easy to withdraw as it is to give.",
+            "category": "consent",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "consent"
+            ],
+            "recommended_value": "Privacy settings can be reopened and consent withdrawn.",
+            "test_key": "consent.withdrawal_available",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-006",
+            "title": "Consent preferences are persisted",
+            "description": "Visitor consent choices must persist across page loads for a reasonable period.",
+            "rationale": "Repeated consent prompts create poor UX and may undermine trust.",
+            "category": "consent",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "consent"
+            ],
+            "recommended_value": "Consent choices are stored client-side without unnecessary identifiers.",
+            "test_key": "consent.preferences_persisted",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-007",
+            "title": "Consent version is recorded",
+            "description": "The active consent policy version must be recorded with visitor choices.",
+            "rationale": "Policy changes require traceability of which version applied.",
+            "category": "consent",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "consent"
+            ],
+            "recommended_value": "Consent version is stored with visitor preferences.",
+            "test_key": "consent.version_recorded",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-008",
+            "title": "Consent categories are clearly separated",
+            "description": "Necessary, analytics, marketing, and external media consent must be separable.",
+            "rationale": "Bundled consent prevents granular visitor choice.",
+            "category": "consent",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "consent"
+            ],
+            "recommended_value": "Consent categories are distinct and independently selectable.",
+            "test_key": "consent.categories_separated",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-TRACKING-001",
+            "title": "Google Analytics does not execute before permitted consent",
+            "description": "GA4 must not load or send measurement requests before analytics consent is granted.",
+            "rationale": "Analytics tags must not fire before lawful consent where required.",
+            "category": "tracking",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "google_analytics",
+                "consent"
+            ],
+            "recommended_value": "No GA requests or _ga cookie before analytics consent.",
+            "test_key": "tracking.ga_blocked_pre_consent",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-TRACKING-002",
+            "title": "Google Tag Manager is appropriately consent-gated",
+            "description": "GTM must initialize consent state before analytics or marketing tags fire where required.",
+            "rationale": "GTM can load multiple tags; consent must gate applicable tags.",
+            "category": "tracking",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "google_tag_manager",
+                "consent"
+            ],
+            "recommended_value": "Consent Mode initializes before applicable GTM tags fire.",
+            "test_key": "tracking.gtm_blocked_pre_consent",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-TRACKING-003",
+            "title": "Unknown tracking scripts are detected",
+            "description": "Unrecognized third-party tracking scripts must be surfaced for administrator review.",
+            "rationale": "Unknown trackers cannot be governed without discovery.",
+            "category": "tracking",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "scripts"
+            ],
+            "recommended_value": "All external tracking scripts are identified or flagged for review.",
+            "test_key": "tracking.unknown_scripts_review",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-TRACKING-004",
+            "title": "Third-party cookies are inventoried",
+            "description": "Third-party cookies set by the site should be inventoried for review.",
+            "rationale": "Cookie visibility supports lawful processing and transparency.",
+            "category": "tracking",
+            "severity": "INFO",
+            "capability": "INFORMATIONAL",
+            "integrations": [
+                "cookies"
+            ],
+            "recommended_value": "Third-party cookies are listed without storing sensitive values.",
+            "test_key": "tracking.cookie_inventory",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-TRACKING-005",
+            "title": "Advertising tracking is disabled by default",
+            "description": "Advertising and marketing tags must remain disabled until explicit consent.",
+            "rationale": "Advertising signals should not run by default.",
+            "category": "tracking",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "consent",
+                "google_analytics"
+            ],
+            "recommended_value": "ad_storage, ad_user_data, and ad_personalization default to denied.",
+            "test_key": "tracking.ad_defaults_denied",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-001",
+            "title": "Consent Mode v2 is configured",
+            "description": "Google Consent Mode v2 must be configured when Google Analytics or Ads tags are present.",
+            "rationale": "Consent Mode communicates consent state to Google tags.",
+            "category": "google_analytics",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "Consent Mode v2 is active with appropriate defaults.",
+            "test_key": "tracking.ga_consent_mode",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-002",
+            "title": "analytics_storage defaults to denied",
+            "description": "The analytics_storage consent type must default to denied.",
+            "rationale": "Analytics storage requires explicit consent where applicable.",
+            "category": "google_analytics",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "analytics_storage=denied before consent.",
+            "test_key": "tracking.ga_analytics_storage_denied",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-003",
+            "title": "ad_storage defaults to denied",
+            "description": "The ad_storage consent type must default to denied.",
+            "rationale": "Advertising cookies require explicit consent.",
+            "category": "google_analytics",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "ad_storage=denied before consent.",
+            "test_key": "tracking.ga_ad_storage_denied",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-004",
+            "title": "ad_user_data defaults to denied",
+            "description": "The ad_user_data consent type must default to denied.",
+            "rationale": "Sending user data for ads requires explicit consent under Consent Mode v2.",
+            "category": "google_analytics",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "ad_user_data=denied before consent.",
+            "test_key": "tracking.ga_ad_user_data_denied",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-005",
+            "title": "ad_personalization defaults to denied",
+            "description": "The ad_personalization consent type must default to denied.",
+            "rationale": "Ad personalization requires explicit consent under Consent Mode v2.",
+            "category": "google_analytics",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "ad_personalization=denied before consent.",
+            "test_key": "tracking.ga_ad_personalization_denied",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-006",
+            "title": "GA4 data retention uses recommended settings",
+            "description": "GA4 event data retention should be reviewed against recommended practice.",
+            "rationale": "Excessive retention increases privacy risk.",
+            "category": "google_analytics",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "14 months or less unless a documented reason exists.",
+            "manual_review_instructions": "Review GA4 Admin \u2192 Data retention and document the chosen period.",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-007",
+            "title": "Google Signals configuration reviewed",
+            "description": "Google Signals settings should be reviewed for cross-device tracking impact.",
+            "rationale": "Signals can combine data across devices and sessions.",
+            "category": "google_analytics",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "google_analytics"
+            ],
+            "manual_review_instructions": "Review Google Signals status in GA4 Admin and document the decision.",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-008",
+            "title": "Google Ads links reviewed",
+            "description": "Links between GA4 and Google Ads should be reviewed.",
+            "rationale": "Ads linking can expand data sharing beyond analytics.",
+            "category": "google_analytics",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "google_analytics"
+            ],
+            "manual_review_instructions": "Review Google Ads account links and document whether they are required.",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-009",
+            "title": "No obvious PII sent to GA",
+            "description": "Obvious personally identifiable information must not be sent to Google Analytics.",
+            "rationale": "Analytics should not process unnecessary personal data.",
+            "category": "google_analytics",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "google_analytics",
+                "pii"
+            ],
+            "recommended_value": "No email addresses, names, or tokens in GA payloads.",
+            "test_key": "data.ga_pii_payload",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GA-010",
+            "title": "Duplicate GA implementations not detected",
+            "description": "Multiple concurrent GA4 implementations can cause duplicate measurement.",
+            "rationale": "Duplicate tags inflate data and may bypass consent gating.",
+            "category": "google_analytics",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "A single GA4 implementation is active.",
+            "test_key": "tracking.ga_duplicate_implementation",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-EMBED-001",
+            "title": "YouTube embeds are privacy-gated",
+            "description": "YouTube embeds must not load before External Media consent where gating is enabled.",
+            "rationale": "YouTube can set cookies and receive viewing data on load.",
+            "category": "embedded_content",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "youtube",
+                "consent"
+            ],
+            "recommended_value": "YouTube iframes are blocked until External Media consent.",
+            "test_key": "embed.youtube_gated",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-EMBED-002",
+            "title": "Third-party embeds are inventoried",
+            "description": "Third-party iframe embeds should be inventoried for review.",
+            "rationale": "Embedded content can transfer data to third parties.",
+            "category": "embedded_content",
+            "severity": "INFO",
+            "capability": "INFORMATIONAL",
+            "integrations": [
+                "embeds"
+            ],
+            "recommended_value": "Known third-party embeds are listed for review.",
+            "test_key": "embed.third_party_inventory",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-FORM-001",
+            "title": "Forms collecting personal data are inventoried",
+            "description": "Forms that collect personal data should be identified.",
+            "rationale": "Data collection points must be visible for privacy governance.",
+            "category": "forms",
+            "severity": "INFO",
+            "capability": "INFORMATIONAL",
+            "integrations": [
+                "forms"
+            ],
+            "recommended_value": "All personal-data forms are listed.",
+            "test_key": "data.form_inventory",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-FORM-002",
+            "title": "Marketing consent is not bundled with necessary processing",
+            "description": "Marketing consent should be separate from consent required to submit a form.",
+            "rationale": "Bundled consent undermines freely given consent for marketing.",
+            "category": "forms",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "forms"
+            ],
+            "manual_review_instructions": "Review form consent checkboxes and separate marketing opt-in where applicable.",
+            "test_key": "forms.marketing_consent_review",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-FORM-003",
+            "title": "Privacy notice capability exists",
+            "description": "Forms collecting personal data should link to or include a privacy notice.",
+            "rationale": "Visitors must be informed about data use at collection time.",
+            "category": "forms",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "forms"
+            ],
+            "manual_review_instructions": "Confirm forms reference the site privacy policy or an equivalent notice.",
+            "test_key": "forms.privacy_notice_at_collection",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-FORM-004",
+            "title": "Sensitive fields are flagged",
+            "description": "Sensitive or high-risk form fields should be flagged for review.",
+            "rationale": "Sensitive categories may require additional safeguards.",
+            "category": "forms",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "forms"
+            ],
+            "recommended_value": "Sensitive free-text and special-category fields are identified.",
+            "test_key": "data.sensitive_fields_identified",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-FORM-005",
+            "title": "Retention configuration is reviewed",
+            "description": "Form entry retention settings should be reviewed where supported.",
+            "rationale": "Data should not be kept longer than necessary.",
+            "category": "forms",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "forms"
+            ],
+            "manual_review_instructions": "Review retention settings in supported form plugins and document periods.",
+            "test_key": "forms.retention_review",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-001",
+            "title": "Privacy Policy page exists and is configured",
+            "description": "WordPress must have a published Privacy Policy page assigned.",
+            "rationale": "Visitors need access to privacy information.",
+            "category": "wordpress",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "A published Privacy Policy page is assigned under Settings \u2192 Privacy.",
+            "test_key": "wp.privacy_policy_page",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-002",
+            "title": "Personal data export functionality is available",
+            "description": "WordPress personal data export tools must be available.",
+            "rationale": "Data subjects may request a copy of their personal data.",
+            "category": "wordpress",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "Personal data export functionality is available.",
+            "test_key": "wp.export_tools_available",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-003",
+            "title": "Personal data erasure functionality is available",
+            "description": "WordPress personal data erasure tools must be available.",
+            "rationale": "Data subjects may request deletion of their personal data.",
+            "category": "wordpress",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "Personal data erasure functionality is available.",
+            "test_key": "wp.erasure_tools_available",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-004",
+            "title": "User registration configuration is reviewed",
+            "description": "Open registration and related privacy settings should be reviewed.",
+            "rationale": "Registration creates new personal data processing.",
+            "category": "wordpress",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "User registration configuration reviewed and justified.",
+            "test_key": "access.open_registration_review",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-005",
+            "title": "Comment and privacy behavior reviewed",
+            "description": "Comment settings and associated data collection should be reviewed.",
+            "rationale": "Comments can collect and publish personal data.",
+            "category": "wordpress",
+            "severity": "LOW",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "manual_review_instructions": "Review discussion settings, comment cookies, and gravatar usage.",
+            "test_key": "wp.comment_privacy",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-006",
+            "title": "REST endpoints do not unnecessarily expose personal information",
+            "description": "WordPress REST API exposure of personal data should be reviewed.",
+            "rationale": "Public endpoints can leak user or author information.",
+            "category": "wordpress",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "REST endpoints do not unnecessarily expose personal information.",
+            "test_key": "exposure.rest_user_enumeration",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-PII-001",
+            "title": "Known PII query parameters are excluded from analytics",
+            "description": "Sensitive URL query parameters must be stripped before analytics page-location data is sent.",
+            "rationale": "URL parameters can contain emails, names, and tokens.",
+            "category": "pii",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "pii",
+                "google_analytics"
+            ],
+            "recommended_value": "Configured sensitive query parameters are excluded from analytics.",
+            "test_key": "data.pii_in_analytics_urls",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-PII-002",
+            "title": "Authentication tokens are excluded from analytics",
+            "description": "Tokens and session identifiers must not be sent to analytics providers.",
+            "rationale": "Tokens in analytics payloads create security and privacy risk.",
+            "category": "pii",
+            "severity": "CRITICAL",
+            "capability": "AUTOMATIC_REMEDIATE",
+            "integrations": [
+                "pii",
+                "google_analytics"
+            ],
+            "recommended_value": "token, authorization, access_token, session, and jwt parameters are excluded.",
+            "test_key": "data.pii_in_analytics_urls",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-PII-003",
+            "title": "Known sensitive URL parameters are identified",
+            "description": "The site should identify sensitive query parameters present in URLs.",
+            "rationale": "Discovery is required before exclusion can be verified.",
+            "category": "pii",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "pii"
+            ],
+            "recommended_value": "Sensitive URL parameters are inventoried without logging values.",
+            "test_key": "data.pii_in_urls",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-PII-004",
+            "title": "Email addresses are not used as GA User-ID",
+            "description": "Email addresses must not be used as Google Analytics User-ID.",
+            "rationale": "Direct identifiers should not be sent to analytics.",
+            "category": "pii",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "google_analytics",
+                "pii"
+            ],
+            "recommended_value": "GA User-ID does not contain email addresses.",
+            "test_key": "data.pii_in_urls",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-RETENTION-001",
+            "title": "Analytics retention reviewed",
+            "description": "Analytics data retention periods should be reviewed.",
+            "rationale": "Retention should be limited to what is necessary.",
+            "category": "retention",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "google_analytics"
+            ],
+            "recommended_value": "14 months or less unless documented otherwise.",
+            "manual_review_instructions": "Review GA4 retention settings and document the chosen period.",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-RETENTION-002",
+            "title": "Form-entry retention reviewed",
+            "description": "Form entry retention should be reviewed where supported.",
+            "rationale": "Form data should not be retained indefinitely.",
+            "category": "retention",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "forms"
+            ],
+            "manual_review_instructions": "Review supported form plugin retention settings.",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-RETENTION-003",
+            "title": "Plugin consent and evidence retention policy defined",
+            "description": "ComplyOps consent and evidence retention should be configured.",
+            "rationale": "The compliance tool must not retain data longer than necessary.",
+            "category": "retention",
+            "severity": "LOW",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "complyops"
+            ],
+            "recommended_value": "Evidence retention period is configured and documented.",
+            "test_key": "retention.evidence_retention_configured",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-SEC-001",
+            "title": "Site is served over HTTPS",
+            "description": "The WordPress site should be configured to use HTTPS.",
+            "rationale": "Transport encryption protects personal data in transit.",
+            "category": "security",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "Site URL and Home URL use HTTPS.",
+            "test_key": "transport.https_enabled",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-SEC-002",
+            "title": "WordPress core version is supported",
+            "description": "WordPress core should meet the supported minimum version.",
+            "rationale": "Unsupported core versions may lack security fixes.",
+            "category": "security",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "WordPress 6.6 or newer.",
+            "test_key": "wp.core_version_supported",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-SEC-003",
+            "title": "Plugin update posture reviewed",
+            "description": "Plugins with data-protection impact should be reasonably current.",
+            "rationale": "Outdated plugins can introduce vulnerabilities affecting personal data.",
+            "category": "security",
+            "severity": "LOW",
+            "capability": "INFORMATIONAL",
+            "integrations": [
+                "wordpress"
+            ],
+            "recommended_value": "Plugins affecting privacy or security are kept updated.",
+            "test_key": "platform.plugin_posture",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-SEC-004",
+            "title": "User privilege configuration reviewed",
+            "description": "Administrative accounts and privileges should follow least-privilege practices.",
+            "rationale": "Excessive privileges increase risk of unauthorized data access.",
+            "category": "security",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "manual_review_instructions": "Review administrator accounts, roles, and shared credentials.",
+            "test_key": "access.administrator_inventory",
+            "verification_type": "H",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-009",
+            "test_key": "consent.accept_reject_parity",
+            "title": "Accept and reject are equally prominent",
+            "description": "Accept and reject buttons must require comparable effort.",
+            "rationale": "Consent must not be obtained through dark patterns.",
+            "category": "consent",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "integrations": [
+                "consent"
+            ],
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-010",
+            "test_key": "consent.withdrawal_stops_processing",
+            "title": "Withdrawal stops future processing",
+            "description": "Changing or withdrawing consent must stop future nonessential processing.",
+            "rationale": "Withdrawal must be effective, not cosmetic.",
+            "category": "consent",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "integrations": [
+                "consent"
+            ],
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-CONSENT-011",
+            "test_key": "consent.record_completeness",
+            "title": "Consent records are complete",
+            "description": "Consent records must include timestamp, version, categories and source.",
+            "rationale": "Demonstrating valid consent requires traceability.",
+            "category": "consent",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "integrations": [
+                "consent"
+            ],
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-007",
+            "test_key": "wp.export_erasure_available",
+            "title": "Plugin export and erasure coverage",
+            "description": "Export and erasure must cover supported plugin data, not only WordPress core.",
+            "rationale": "Data subject rights must reach plugin-held data.",
+            "category": "wordpress",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-WP-008",
+            "test_key": "privacy.rights_mechanisms_discoverable",
+            "title": "Rights request mechanisms are discoverable",
+            "description": "Correction, restriction and objection routes must be discoverable.",
+            "rationale": "Data subjects must know how to exercise rights.",
+            "category": "wordpress",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GOV-001",
+            "test_key": "governance.manual_evidence",
+            "title": "Processing purposes documented",
+            "description": "Processing purposes and lawful basis must be documented for each collection point.",
+            "rationale": "Lawful basis must be established before processing.",
+            "category": "governance",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "verification_type": "H",
+            "manual_review_instructions": "Document lawful basis and purpose for each collection point.",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GOV-002",
+            "test_key": "governance.manual_evidence",
+            "title": "Processor inventory current",
+            "description": "Processor inventory and DPAs must be current.",
+            "rationale": "Article 28 requires appropriate processor agreements.",
+            "category": "governance",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "verification_type": "H",
+            "manual_review_instructions": "Maintain processor inventory and executed DPAs.",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GOV-003",
+            "test_key": "governance.manual_evidence",
+            "title": "International transfers documented",
+            "description": "International transfer mechanisms must be documented where applicable.",
+            "rationale": "Cross-border transfers require appropriate safeguards.",
+            "category": "governance",
+            "severity": "HIGH",
+            "capability": "LEGAL_REVIEW",
+            "verification_type": "L",
+            "manual_review_instructions": "Document transfer mechanisms such as SCCs or adequacy decisions.",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GOV-004",
+            "test_key": "governance.manual_evidence",
+            "title": "DPIA for high-risk processing",
+            "description": "Data protection impact assessments must exist for high-risk processing.",
+            "rationale": "Article 35 requires DPIAs for likely high-risk processing.",
+            "category": "governance",
+            "severity": "HIGH",
+            "capability": "LEGAL_REVIEW",
+            "verification_type": "L",
+            "manual_review_instructions": "Complete DPIA where high-risk processing is identified.",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-GOV-005",
+            "test_key": "governance.manual_evidence",
+            "title": "Breach response procedure",
+            "description": "Breach-response procedure and 72-hour escalation workflow must be documented.",
+            "rationale": "Articles 33-34 require breach assessment and notification.",
+            "category": "governance",
+            "severity": "CRITICAL",
+            "capability": "MANUAL_REVIEW",
+            "verification_type": "H",
+            "manual_review_instructions": "Document breach response, escalation, and notification workflow.",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-RETENTION-004",
+            "test_key": "retention.jobs_configured",
+            "title": "Retention jobs enforce expiry",
+            "description": "Retention jobs must remove or anonymize expired form, consent and evidence records.",
+            "rationale": "Storage limitation requires operational enforcement.",
+            "category": "retention",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "GDPR-PII-005",
+            "test_key": "data.pii_in_urls",
+            "title": "Personal data absent from leakage vectors",
+            "description": "Personal information must be absent from URLs, analytics, logs and error messages.",
+            "rationale": "Article 32 requires appropriate security of processing.",
+            "category": "pii",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "integrations": [
+                "pii",
+                "google_analytics"
+            ],
+            "source": {
+                "authority": "GDPR",
+                "version": "2016/679",
+                "last_legal_review": "2026-08-31"
+            }
+        }
+    ],
+    "label": "GDPR Technical Readiness",
+    "disclaimer": "GDPR technical readiness only; not legal compliance or a certification."
+}

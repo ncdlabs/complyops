@@ -1,0 +1,516 @@
+{
+    "catalog_format": "complyops-shared-tests",
+    "catalog_version": "1.0.0",
+    "tests": [
+        {
+            "key": "transport.https_enabled",
+            "category": "transport",
+            "title": "Transport / Https Enabled",
+            "test_method": "static"
+        },
+        {
+            "key": "access.open_registration_review",
+            "category": "access",
+            "title": "Access / Open Registration Review",
+            "test_method": "static"
+        },
+        {
+            "key": "access.administrator_inventory",
+            "category": "access",
+            "title": "Access / Administrator Inventory",
+            "test_method": "static"
+        },
+        {
+            "key": "access.default_admin_username",
+            "category": "access",
+            "title": "Access / Default Admin Username",
+            "test_method": "static"
+        },
+        {
+            "key": "access.stale_admin_accounts",
+            "category": "access",
+            "title": "Access / Stale Admin Accounts",
+            "test_method": "static"
+        },
+        {
+            "key": "access.mfa_integration",
+            "category": "access",
+            "title": "Access / Mfa Integration",
+            "test_method": "static"
+        },
+        {
+            "key": "access.session_timeout",
+            "category": "access",
+            "title": "Access / Session Timeout",
+            "test_method": "static"
+        },
+        {
+            "key": "access.rate_limiting_present",
+            "category": "access",
+            "title": "Access / Rate Limiting Present",
+            "test_method": "static"
+        },
+        {
+            "key": "exposure.rest_user_enumeration",
+            "category": "exposure",
+            "title": "Exposure / Rest User Enumeration",
+            "test_method": "static"
+        },
+        {
+            "key": "exposure.debug_mode_disabled",
+            "category": "exposure",
+            "title": "Exposure / Debug Mode Disabled",
+            "test_method": "static"
+        },
+        {
+            "key": "exposure.file_editor_disabled",
+            "category": "exposure",
+            "title": "Exposure / File Editor Disabled",
+            "test_method": "static"
+        },
+        {
+            "key": "exposure.xmlrpc_disabled",
+            "category": "exposure",
+            "title": "Exposure / Xmlrpc Disabled",
+            "test_method": "static"
+        },
+        {
+            "key": "exposure.directory_indexing",
+            "category": "exposure",
+            "title": "Exposure / Directory Indexing",
+            "test_method": "static"
+        },
+        {
+            "key": "exposure.outbound_request_controls",
+            "category": "exposure",
+            "title": "Exposure / Outbound Request Controls",
+            "test_method": "static"
+        },
+        {
+            "key": "exposure.private_content_leakage",
+            "category": "exposure",
+            "title": "Exposure / Private Content Leakage",
+            "test_method": "static"
+        },
+        {
+            "key": "wp.core_version_supported",
+            "category": "wp",
+            "title": "Wp / Core Version Supported",
+            "test_method": "static"
+        },
+        {
+            "key": "platform.plugin_posture",
+            "category": "platform",
+            "title": "Platform / Plugin Posture",
+            "test_method": "static"
+        },
+        {
+            "key": "platform.vulnerable_plugins",
+            "category": "platform",
+            "title": "Platform / Vulnerable Plugins",
+            "test_method": "static"
+        },
+        {
+            "key": "platform.abandoned_plugins",
+            "category": "platform",
+            "title": "Platform / Abandoned Plugins",
+            "test_method": "static"
+        },
+        {
+            "key": "platform.checksum_integrity",
+            "category": "platform",
+            "title": "Platform / Checksum Integrity",
+            "test_method": "static"
+        },
+        {
+            "key": "platform.unexpected_executables",
+            "category": "platform",
+            "title": "Platform / Unexpected Executables",
+            "test_method": "static"
+        },
+        {
+            "key": "platform.trusted_update_sources",
+            "category": "platform",
+            "title": "Platform / Trusted Update Sources",
+            "test_method": "static"
+        },
+        {
+            "key": "wp.privacy_policy_page",
+            "category": "wp",
+            "title": "Wp / Privacy Policy Page",
+            "test_method": "static"
+        },
+        {
+            "key": "wp.export_tools_available",
+            "category": "wp",
+            "title": "Wp / Export Tools Available",
+            "test_method": "static"
+        },
+        {
+            "key": "wp.erasure_tools_available",
+            "category": "wp",
+            "title": "Wp / Erasure Tools Available",
+            "test_method": "static"
+        },
+        {
+            "key": "wp.export_erasure_available",
+            "category": "wp",
+            "title": "Wp / Export Erasure Available",
+            "test_method": "static"
+        },
+        {
+            "key": "wp.comment_privacy",
+            "category": "wp",
+            "title": "Wp / Comment Privacy",
+            "test_method": "static"
+        },
+        {
+            "key": "privacy.rights_mechanisms_discoverable",
+            "category": "privacy",
+            "title": "Privacy / Rights Mechanisms Discoverable",
+            "test_method": "static"
+        },
+        {
+            "key": "logging.activity_log_available",
+            "category": "logging",
+            "title": "Logging / Activity Log Available",
+            "test_method": "static"
+        },
+        {
+            "key": "logging.monitoring_schedule",
+            "category": "logging",
+            "title": "Logging / Monitoring Schedule",
+            "test_method": "static"
+        },
+        {
+            "key": "consent.mechanism_present",
+            "category": "consent",
+            "title": "Consent / Mechanism Present",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.nonessential_blocked_pre_consent",
+            "category": "consent",
+            "title": "Consent / Nonessential Blocked Pre Consent",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.analytics_default_denied",
+            "category": "consent",
+            "title": "Consent / Analytics Default Denied",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.marketing_default_denied",
+            "category": "consent",
+            "title": "Consent / Marketing Default Denied",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.withdrawal_available",
+            "category": "consent",
+            "title": "Consent / Withdrawal Available",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.preferences_persisted",
+            "category": "consent",
+            "title": "Consent / Preferences Persisted",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.version_recorded",
+            "category": "consent",
+            "title": "Consent / Version Recorded",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.categories_separated",
+            "category": "consent",
+            "title": "Consent / Categories Separated",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.accept_reject_parity",
+            "category": "consent",
+            "title": "Consent / Accept Reject Parity",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.withdrawal_stops_processing",
+            "category": "consent",
+            "title": "Consent / Withdrawal Stops Processing",
+            "test_method": "runtime"
+        },
+        {
+            "key": "consent.record_completeness",
+            "category": "consent",
+            "title": "Consent / Record Completeness",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ga_blocked_pre_consent",
+            "category": "tracking",
+            "title": "Tracking / Ga Blocked Pre Consent",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.gtm_blocked_pre_consent",
+            "category": "tracking",
+            "title": "Tracking / Gtm Blocked Pre Consent",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.unknown_scripts_review",
+            "category": "tracking",
+            "title": "Tracking / Unknown Scripts Review",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.cookie_inventory",
+            "category": "tracking",
+            "title": "Tracking / Cookie Inventory",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ad_defaults_denied",
+            "category": "tracking",
+            "title": "Tracking / Ad Defaults Denied",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ga_consent_mode",
+            "category": "tracking",
+            "title": "Tracking / Ga Consent Mode",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ga_analytics_storage_denied",
+            "category": "tracking",
+            "title": "Tracking / Ga Analytics Storage Denied",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ga_ad_storage_denied",
+            "category": "tracking",
+            "title": "Tracking / Ga Ad Storage Denied",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ga_ad_user_data_denied",
+            "category": "tracking",
+            "title": "Tracking / Ga Ad User Data Denied",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ga_ad_personalization_denied",
+            "category": "tracking",
+            "title": "Tracking / Ga Ad Personalization Denied",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.ga_duplicate_implementation",
+            "category": "tracking",
+            "title": "Tracking / Ga Duplicate Implementation",
+            "test_method": "runtime"
+        },
+        {
+            "key": "tracking.gpc_honored",
+            "category": "tracking",
+            "title": "Tracking / Gpc Honored",
+            "test_method": "runtime"
+        },
+        {
+            "key": "data.form_inventory",
+            "category": "data",
+            "title": "Data / Form Inventory",
+            "test_method": "static"
+        },
+        {
+            "key": "forms.marketing_consent_review",
+            "category": "forms",
+            "title": "Forms / Marketing Consent Review",
+            "test_method": "static"
+        },
+        {
+            "key": "forms.privacy_notice_at_collection",
+            "category": "forms",
+            "title": "Forms / Privacy Notice At Collection",
+            "test_method": "static"
+        },
+        {
+            "key": "forms.retention_review",
+            "category": "forms",
+            "title": "Forms / Retention Review",
+            "test_method": "static"
+        },
+        {
+            "key": "data.sensitive_fields_identified",
+            "category": "data",
+            "title": "Data / Sensitive Fields Identified",
+            "test_method": "static"
+        },
+        {
+            "key": "data.ephi_inventory",
+            "category": "data",
+            "title": "Data / Ephi Inventory",
+            "test_method": "static"
+        },
+        {
+            "key": "data.pii_in_analytics_urls",
+            "category": "data",
+            "title": "Data / Pii In Analytics Urls",
+            "test_method": "static"
+        },
+        {
+            "key": "data.pii_in_urls",
+            "category": "data",
+            "title": "Data / Pii In Urls",
+            "test_method": "static"
+        },
+        {
+            "key": "data.ga_pii_payload",
+            "category": "data",
+            "title": "Data / Ga Pii Payload",
+            "test_method": "static"
+        },
+        {
+            "key": "embed.youtube_gated",
+            "category": "embed",
+            "title": "Embed / Youtube Gated",
+            "test_method": "static"
+        },
+        {
+            "key": "embed.third_party_gated",
+            "category": "embed",
+            "title": "Embed / Third Party Gated",
+            "test_method": "static"
+        },
+        {
+            "key": "embed.third_party_inventory",
+            "category": "embed",
+            "title": "Embed / Third Party Inventory",
+            "test_method": "static"
+        },
+        {
+            "key": "retention.evidence_retention_configured",
+            "category": "retention",
+            "title": "Retention / Evidence Retention Configured",
+            "test_method": "static"
+        },
+        {
+            "key": "retention.jobs_configured",
+            "category": "retention",
+            "title": "Retention / Jobs Configured",
+            "test_method": "static"
+        },
+        {
+            "key": "governance.manual_evidence",
+            "category": "governance",
+            "title": "Governance / Manual Evidence",
+            "test_method": "manual"
+        },
+        {
+            "key": "governance.policy_evidence",
+            "category": "governance",
+            "title": "Governance / Policy Evidence",
+            "test_method": "manual"
+        },
+        {
+            "key": "governance.threat_model_review",
+            "category": "governance",
+            "title": "Governance / Threat Model Review",
+            "test_method": "manual"
+        },
+        {
+            "key": "encryption.at_rest_evidence",
+            "category": "encryption",
+            "title": "Encryption / At Rest Evidence",
+            "test_method": "static"
+        },
+        {
+            "key": "integrity.unauthorized_alteration",
+            "category": "integrity",
+            "title": "Integrity / Unauthorized Alteration",
+            "test_method": "static"
+        },
+        {
+            "key": "transmission.email_ephi_flag",
+            "category": "transmission",
+            "title": "Transmission / Email Ephi Flag",
+            "test_method": "static"
+        },
+        {
+            "key": "runtime.php_error_leakage",
+            "category": "runtime",
+            "title": "Runtime / Php Error Leakage",
+            "test_method": "static"
+        },
+        {
+            "key": "runtime.http_500_pattern",
+            "category": "runtime",
+            "title": "Runtime / Http 500 Pattern",
+            "test_method": "static"
+        },
+        {
+            "key": "runtime.failed_cron_jobs",
+            "category": "runtime",
+            "title": "Runtime / Failed Cron Jobs",
+            "test_method": "static"
+        },
+        {
+            "key": "transport.hsts_present",
+            "category": "transport",
+            "title": "Transport / Hsts Present",
+            "test_method": "static"
+        },
+        {
+            "key": "transport.csp_present",
+            "category": "transport",
+            "title": "Transport / Csp Present",
+            "test_method": "static"
+        },
+        {
+            "key": "transport.security_headers",
+            "category": "transport",
+            "title": "Transport / Security Headers",
+            "test_method": "static"
+        },
+        {
+            "key": "privacy.do_not_sell_link_discoverable",
+            "category": "privacy",
+            "title": "Privacy / Do Not Sell Link Discoverable",
+            "test_method": "static"
+        },
+        {
+            "key": "privacy.opt_out_network_verified",
+            "category": "privacy",
+            "title": "Privacy / Opt Out Network Verified",
+            "test_method": "runtime"
+        },
+        {
+            "key": "payment.checkout_scripts_inventory",
+            "category": "payment",
+            "title": "Payment / Checkout Scripts Inventory",
+            "test_method": "runtime"
+        },
+        {
+            "key": "accessibility.statement_present",
+            "category": "accessibility",
+            "title": "Accessibility / Statement Present",
+            "test_method": "static"
+        },
+        {
+            "key": "accessibility.axe_scan",
+            "category": "accessibility",
+            "title": "Accessibility / Axe Scan",
+            "test_method": "runtime"
+        },
+        {
+            "key": "privacy.age_verification_review",
+            "category": "privacy",
+            "title": "Privacy / Age Verification Review",
+            "test_method": "manual"
+        }
+    ]
+}

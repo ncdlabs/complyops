@@ -1,0 +1,4 @@
+#adminmenu li.complyops-hidden-menu-item,
+#adminmenu #toplevel_page_complyops .wp-submenu {
+	display: none;
+}

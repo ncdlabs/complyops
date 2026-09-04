@@ -1,0 +1,231 @@
+/* ComplyOps consent banner — theme-neutral, accessible */
+
+.complyops-consent-root {
+	position: relative;
+	z-index: 99998;
+}
+
+.complyops-consent-banner {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #fff;
+	border-top: 1px solid #c3c4c7;
+	box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+	padding: 16px 20px;
+	z-index: 99999;
+}
+
+.complyops-consent-banner__content {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.complyops-consent-banner__body {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	margin-bottom: 14px;
+}
+
+.complyops-consent-banner__site-logo {
+	flex: 0 0 auto;
+	display: block;
+	max-height: 48px;
+	max-width: 120px;
+	width: auto;
+	height: auto;
+	margin: 0;
+	object-fit: contain;
+}
+
+.complyops-consent-banner__text {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.complyops-consent-banner h2 {
+	margin: 0 0 8px;
+	font-size: 18px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.complyops-consent-banner p,
+.complyops-consent-banner__description {
+	margin: 0 0 14px;
+	color: #50575e;
+	line-height: 1.5;
+}
+
+.complyops-consent-banner__description p:last-child {
+	margin-bottom: 0;
+}
+
+.complyops-consent-banner__actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.complyops-consent-banner__actions-start {
+	flex: 0 1 auto;
+}
+
+.complyops-consent-banner__actions-end {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-left: auto;
+	justify-content: flex-end;
+}
+
+.complyops-consent-btn {
+	appearance: none;
+	border: 1px solid #8c8f94;
+	background: #f6f7f7;
+	color: #1d2327;
+	border-radius: 4px;
+	padding: 8px 14px;
+	font-size: 14px;
+	cursor: pointer;
+	line-height: 1.4;
+}
+
+.complyops-consent-btn:hover,
+.complyops-consent-btn:focus {
+	border-color: #2271b1;
+	outline: 2px solid transparent;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.complyops-consent-btn--primary {
+	background: #2271b1;
+	border-color: #2271b1;
+	color: #fff;
+}
+
+.complyops-consent-btn--primary:hover,
+.complyops-consent-btn--primary:focus {
+	background: #135e96;
+	border-color: #135e96;
+	color: #fff;
+}
+
+.complyops-consent-btn--link {
+	background: transparent;
+	border-color: transparent;
+	color: #2271b1;
+	text-decoration: underline;
+}
+
+.complyops-consent-btn--danger {
+	border-color: #d63638;
+	color: #d63638;
+	background: #fff;
+}
+
+.complyops-consent-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.complyops-consent-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	border: 0;
+	background: rgba(0, 0, 0, 0.45);
+	cursor: pointer;
+}
+
+.complyops-consent-modal__panel {
+	position: relative;
+	background: #fff;
+	border-radius: 6px;
+	width: min(480px, 100%);
+	max-height: 90vh;
+	overflow: auto;
+	padding: 20px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.complyops-consent-modal__panel h2 {
+	margin-top: 0;
+}
+
+.complyops-consent-categories {
+	list-style: none;
+	margin: 0 0 16px;
+	padding: 0;
+}
+
+.complyops-consent-categories li {
+	padding: 10px 0;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.complyops-consent-categories label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+}
+
+.complyops-consent-modal__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.complyops-consent-reopen {
+	position: fixed;
+	left: 16px;
+	bottom: 16px;
+	z-index: 99997;
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid #c3c4c7;
+	background: #fff;
+	color: #1d2327;
+	border-radius: 999px;
+	padding: 8px 14px;
+	font-size: 13px;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.complyops-consent-reopen:hover,
+.complyops-consent-reopen:focus {
+	border-color: #2271b1;
+	outline: 2px solid transparent;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+@media (max-width: 600px) {
+	.complyops-consent-banner__body {
+		flex-direction: column;
+	}
+
+	.complyops-consent-banner__actions,
+	.complyops-consent-banner__actions-end,
+	.complyops-consent-modal__actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.complyops-consent-banner__actions-end {
+		margin-left: 0;
+	}
+
+	.complyops-consent-btn {
+		width: 100%;
+	}
+}

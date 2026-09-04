@@ -1,0 +1,35 @@
+{
+  "name": "complyops",
+  "version": "0.1.0",
+  "description": "ComplyOps WordPress plugin assets",
+  "private": true,
+  "scripts": {
+    "build": "wp-scripts build",
+    "package:release": "./scripts/package-release",
+    "package:packs": "./scripts/package-framework-packs",
+    "publish:packs": "./scripts/publish-framework-packs-release",
+    "watch": "wp-scripts start",
+    "watch:daemon": "./scripts/dev-watch start",
+    "watch:stop": "./scripts/dev-watch stop",
+    "dev": "test -f .env || cp .env.example .env; test -f build/admin.js || npm run build; ./scripts/dev-up && npm run watch",
+    "dev:daemon": "test -f .env || cp .env.example .env; test -f build/admin.js || npm run build; ./scripts/dev-up && npm run watch:daemon",
+    "start": "test -f .env || cp .env.example .env; composer install --no-interaction 2>/dev/null || true; npm run build && ./scripts/dev-up && ./scripts/dev-init",
+    "stop": "./scripts/dev-down",
+    "restart": "./scripts/dev-restart",
+    "reset:setupwizard": "./scripts/wp option update complyops_setup_complete 0 && ./scripts/wp option update complyops_setup_pending 1 && ./scripts/wp option update complyops_setup_dismissed_forever 0",
+    "reset:tutorial": "./scripts/wp option update complyops_tutorial_complete 0 && ./scripts/wp option update complyops_tutorial_dismissed_forever 0",
+    "watch:admin": "wp-scripts start",
+    "watch:consent": "wp-scripts start",
+    "watch:enforcement": "wp-scripts start",
+    "watch:youtube-gate": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js assets/src",
+    "format:js": "wp-scripts format assets/src",
+    "format:js:check": "prettier --check \"assets/src/**/*.{js,jsx,json,ts,tsx,yml,yaml}\" --ignore-path node_modules/@wordpress/scripts/config/.prettierignore --config node_modules/@wordpress/prettier-config/lib/index.js",
+    "format:check": "npm run format:js:check",
+    "test:js": "wp-scripts test-unit-js",
+    "test": "npm run test:js"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^34.2.0"
+  }
+}

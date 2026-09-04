@@ -1,0 +1,697 @@
+{
+    "framework": "owasp",
+    "version": "2.0.0",
+    "controls": [
+        {
+            "id": "OWASP-A01-001",
+            "title": "REST API user enumeration limited",
+            "description": "The WordPress REST API must not unnecessarily expose user accounts to unauthenticated visitors.",
+            "rationale": "Public user enumeration supports targeted attacks and broken access control scenarios.",
+            "category": "access",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A01:2025 Broken Access Control",
+            "recommended_value": "REST endpoints do not unnecessarily expose user accounts.",
+            "test_key": "exposure.rest_user_enumeration",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A01-002",
+            "title": "Open user registration reviewed",
+            "description": "Open user registration must be disabled unless explicitly required for the site.",
+            "rationale": "Unrestricted registration expands the attack surface and access control scope.",
+            "category": "access",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A01:2025 Broken Access Control",
+            "recommended_value": "User registration is disabled or justified and restricted.",
+            "test_key": "access.open_registration_review",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A01-003",
+            "title": "Privileged accounts limited",
+            "description": "Administrator accounts must follow least-privilege practices and be limited to authorized personnel.",
+            "rationale": "Excessive privileged accounts increase the impact of credential compromise.",
+            "category": "access",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A01:2025 Broken Access Control",
+            "manual_review_instructions": "Review administrator accounts, shared credentials, and role assignments; remove unnecessary privileges.",
+            "test_key": "access.administrator_inventory",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A02-001",
+            "title": "HTTPS and TLS configured",
+            "description": "The WordPress site must be configured to use HTTPS for all public traffic.",
+            "rationale": "Transport encryption protects data in transit against interception and cryptographic failure.",
+            "category": "cryptography",
+            "severity": "CRITICAL",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A02:2025 Cryptographic Failures",
+            "recommended_value": "Site URL and Home URL use HTTPS.",
+            "test_key": "transport.https_enabled",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A02-002",
+            "title": "Sensitive URL parameters excluded from analytics",
+            "description": "Sensitive query parameters must not be transmitted to third-party analytics providers.",
+            "rationale": "Analytics payloads can leak credentials, tokens, and personal data outside the security boundary.",
+            "category": "cryptography",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "pii",
+                "google_analytics"
+            ],
+            "owasp_reference": "A02:2025 Cryptographic Failures",
+            "recommended_value": "Configured sensitive query parameters are excluded from analytics.",
+            "test_key": "data.pii_in_analytics_urls",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A03-001",
+            "title": "Form input handling reviewed",
+            "description": "Forms that accept user input must use validated, sanitized handling appropriate to the data collected.",
+            "rationale": "Unvalidated input is a primary vector for injection and cross-site scripting.",
+            "category": "injection",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "forms"
+            ],
+            "owasp_reference": "A03:2025 Injection",
+            "manual_review_instructions": "Review form plugins and custom handlers for input validation, sanitization, and output escaping.",
+            "test_key": "platform.vulnerable_plugins",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A03-002",
+            "title": "Database query protections verified",
+            "description": "Custom database queries must use parameterized APIs rather than concatenated SQL.",
+            "rationale": "SQL injection remains a critical risk when custom queries bypass WordPress database APIs.",
+            "category": "injection",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A03:2025 Injection",
+            "manual_review_instructions": "Review custom themes, plugins, and snippets for direct SQL usage; confirm $wpdb->prepare() or ORM equivalents are used.",
+            "test_key": "platform.abandoned_plugins",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A04-001",
+            "title": "Third-party integrations inventoried",
+            "description": "Third-party scripts, forms, and services with site access must be inventoried and reviewed.",
+            "rationale": "Insecure design often begins with unreviewed third-party dependencies and data flows.",
+            "category": "design",
+            "severity": "MEDIUM",
+            "capability": "INFORMATIONAL",
+            "integrations": [
+                "forms"
+            ],
+            "owasp_reference": "A04:2025 Insecure Design",
+            "recommended_value": "Personal-data forms and third-party integrations are listed for review.",
+            "test_key": "data.form_inventory",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A04-002",
+            "title": "Security requirements documented for integrations",
+            "description": "Security requirements for new plugins, themes, and integrations must be documented before deployment.",
+            "rationale": "Documented security expectations reduce insecure-by-default design decisions.",
+            "category": "design",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "owasp_reference": "A04:2025 Insecure Design",
+            "manual_review_instructions": "Document security review criteria for plugin, theme, and integration changes before production deployment.",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A05-001",
+            "title": "Debug mode disabled in production",
+            "description": "WordPress debug mode must be disabled on production sites.",
+            "rationale": "Debug output can expose paths, queries, and configuration details to attackers.",
+            "category": "configuration",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A05:2025 Security Misconfiguration",
+            "recommended_value": "WP_DEBUG is false or undefined in production.",
+            "test_key": "exposure.debug_mode_disabled",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A05-002",
+            "title": "Theme and plugin file editor disabled",
+            "description": "The WordPress theme and plugin file editor must be disabled in production.",
+            "rationale": "In-admin file editing allows rapid compromise if an administrator session is hijacked.",
+            "category": "configuration",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A05:2025 Security Misconfiguration",
+            "recommended_value": "DISALLOW_FILE_EDIT is enabled or the file editor is otherwise disabled.",
+            "test_key": "exposure.file_editor_disabled",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A05-003",
+            "title": "Default administrator username avoided",
+            "description": "The default \"admin\" username must not be used for privileged accounts.",
+            "rationale": "Predictable usernames simplify credential-guessing and brute-force attacks.",
+            "category": "configuration",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A05:2025 Security Misconfiguration",
+            "recommended_value": "No active account uses the default \"admin\" username.",
+            "test_key": "access.default_admin_username",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A06-001",
+            "title": "WordPress core on supported version",
+            "description": "WordPress core must be maintained at a supported version with security updates applied.",
+            "rationale": "Outdated core components are a common source of exploitable vulnerabilities.",
+            "category": "components",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A06:2025 Vulnerable and Outdated Components",
+            "recommended_value": "WordPress 6.6 or newer.",
+            "test_key": "wp.core_version_supported",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A06-002",
+            "title": "Plugin inventory maintained",
+            "description": "Installed plugins must be inventoried to support patch and vulnerability management.",
+            "rationale": "Component visibility is required to identify and remediate vulnerable plugins.",
+            "category": "components",
+            "severity": "INFO",
+            "capability": "INFORMATIONAL",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A06:2025 Vulnerable and Outdated Components",
+            "recommended_value": "Installed plugins are inventoried for review.",
+            "test_key": "platform.plugin_posture",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A06-003",
+            "title": "Unused plugins deactivated",
+            "description": "Plugins that are not required for site operation should be deactivated and removed when possible.",
+            "rationale": "Inactive but installed plugins still expand the attack surface.",
+            "category": "components",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A06:2025 Vulnerable and Outdated Components",
+            "manual_review_instructions": "Review inactive plugins and remove those no longer required.",
+            "test_key": "governance.threat_model_review",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A07-001",
+            "title": "Authentication configuration reviewed",
+            "description": "Authentication settings including registration and login exposure must be reviewed.",
+            "rationale": "Misconfigured authentication expands account creation and credential attack opportunities.",
+            "category": "authentication",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A07:2025 Identification and Authentication Failures",
+            "recommended_value": "Authentication and registration settings are reviewed and justified.",
+            "test_key": "access.open_registration_review",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A07-002",
+            "title": "Multi-factor authentication for administrators",
+            "description": "Multi-factor authentication should be enforced for WordPress administrator accounts.",
+            "rationale": "MFA significantly reduces account takeover risk for privileged users.",
+            "category": "authentication",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A07:2025 Identification and Authentication Failures",
+            "manual_review_instructions": "Confirm MFA is enabled for all administrator accounts through your identity or security plugin.",
+            "test_key": "access.mfa_integration",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A07-003",
+            "title": "Password and session policies documented",
+            "description": "Password strength, rotation, and session timeout requirements must be documented and enforced where feasible.",
+            "rationale": "Weak credential and session policies increase authentication failure risk.",
+            "category": "authentication",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A07:2025 Identification and Authentication Failures",
+            "manual_review_instructions": "Document password policies, MFA requirements, and session timeout settings for WordPress access.",
+            "test_key": "access.stale_admin_accounts",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A08-001",
+            "title": "Plugin and theme sources verified",
+            "description": "Plugins and themes must be installed only from trusted sources such as WordPress.org or verified vendors.",
+            "rationale": "Untrusted components can introduce malware or backdoors that compromise integrity.",
+            "category": "integrity",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A08:2025 Software and Data Integrity Failures",
+            "manual_review_instructions": "Review installed plugins and themes; confirm they were obtained from trusted sources and have not been tampered with.",
+            "test_key": "platform.checksum_integrity",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A08-002",
+            "title": "Update integrity controls reviewed",
+            "description": "Automatic and manual update processes must preserve software integrity.",
+            "rationale": "Compromised update channels can inject malicious code into production systems.",
+            "category": "integrity",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A08:2025 Software and Data Integrity Failures",
+            "manual_review_instructions": "Document how core, plugin, and theme updates are tested and applied, including rollback procedures.",
+            "test_key": "platform.trusted_update_sources",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A09-001",
+            "title": "Security event logging enabled",
+            "description": "Security-relevant events such as authentication and administrative actions must be logged and retained.",
+            "rationale": "Logging supports detection, investigation, and response to security incidents.",
+            "category": "logging",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A09:2025 Security Logging and Monitoring Failures",
+            "manual_review_instructions": "Confirm security logs are retained and reviewed for WordPress admin, authentication, and hosting events.",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A09-002",
+            "title": "Administrator activity log available",
+            "description": "Administrative actions affecting compliance posture must be recorded in an audit trail.",
+            "rationale": "Activity logs support accountability and post-incident investigation.",
+            "category": "logging",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "complyops"
+            ],
+            "owasp_reference": "A09:2025 Security Logging and Monitoring Failures",
+            "recommended_value": "ComplyOps administrator activity log is available.",
+            "test_key": "logging.activity_log_available",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A09-003",
+            "title": "Continuous compliance monitoring scheduled",
+            "description": "Automated compliance monitoring must run on a defined schedule when continuous monitoring is in use.",
+            "rationale": "Scheduled audits detect configuration drift and emerging control deficiencies.",
+            "category": "logging",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "integrations": [
+                "complyops"
+            ],
+            "owasp_reference": "A09:2025 Security Logging and Monitoring Failures",
+            "recommended_value": "ComplyOps monitoring interval is set to daily, weekly, or monthly.",
+            "test_key": "logging.monitoring_schedule",
+            "verification_type": "A",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A10-001",
+            "title": "Outbound HTTP request controls reviewed",
+            "description": "Outbound HTTP requests initiated by WordPress or plugins must be reviewed for SSRF risk.",
+            "rationale": "Server-side request forgery can expose internal services through WordPress HTTP APIs.",
+            "category": "ssrf",
+            "severity": "MEDIUM",
+            "capability": "MANUAL_REVIEW",
+            "integrations": [
+                "wordpress"
+            ],
+            "owasp_reference": "A10:2025 Server-Side Request Forgery",
+            "manual_review_instructions": "Review plugins and custom code that fetch remote URLs; restrict allowed hosts and validate user-supplied URLs.",
+            "test_key": "runtime.php_error_leakage",
+            "verification_type": "H",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A01-004",
+            "test_key": "exposure.private_content_leakage",
+            "title": "Private content leakage reviewed",
+            "description": "Private content must not leak through REST, uploads or caching.",
+            "rationale": "Broken access control includes unintended disclosure.",
+            "category": "access",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A01:2025 Broken Access Control",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A03-003",
+            "test_key": "platform.checksum_integrity",
+            "title": "WordPress checksum integrity",
+            "description": "WordPress core integrity should be verifiable through checksums.",
+            "rationale": "Supply chain failures include unexpected core modifications.",
+            "category": "supply_chain",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A03:2025 Software Supply Chain Failures",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A03-004",
+            "test_key": "platform.unexpected_executables",
+            "title": "Unexpected executables in uploads",
+            "description": "Upload directories must not contain unexpected executable files.",
+            "rationale": "Supply chain and integrity failures often manifest as web shells.",
+            "category": "supply_chain",
+            "severity": "CRITICAL",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A03:2025 Software Supply Chain Failures",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A06-004",
+            "test_key": "access.rate_limiting_present",
+            "title": "Rate limiting or login protection",
+            "description": "Rate limiting or login protection should be present for abuse-prone flows.",
+            "rationale": "Insecure design includes missing anti-automation controls.",
+            "category": "design",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A06:2025 Insecure Design",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A07-004",
+            "test_key": "access.session_timeout",
+            "title": "Session timeout reviewed",
+            "description": "Administrative sessions should expire within an acceptable interval.",
+            "rationale": "Authentication failures include weak session management.",
+            "category": "authentication",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A07:2025 Authentication Failures",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A08-003",
+            "test_key": "platform.trusted_update_sources",
+            "title": "Trusted update sources",
+            "description": "Plugin and theme updates should come from trusted sources with modifications restricted.",
+            "rationale": "Software and data integrity depends on trusted update channels.",
+            "category": "integrity",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A08:2025 Software or Data Integrity Failures",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A10-002",
+            "test_key": "runtime.http_500_pattern",
+            "title": "Repeated server errors monitored",
+            "description": "Repeated HTTP 500 responses should be monitored and investigated.",
+            "rationale": "Mishandled exceptional conditions can leak data or weaken security.",
+            "category": "runtime",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A10:2025 Mishandled Exceptional Conditions",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A10-003",
+            "test_key": "runtime.failed_cron_jobs",
+            "title": "Failed scheduled tasks reviewed",
+            "description": "Failed cron jobs and integration failures should be reviewed.",
+            "rationale": "Operational failures can break security controls silently.",
+            "category": "runtime",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A10:2025 Mishandled Exceptional Conditions",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-EXT-001",
+            "test_key": "exposure.outbound_request_controls",
+            "title": "Outbound request controls",
+            "description": "Outbound request controls should limit SSRF-style abuse from WordPress.",
+            "rationale": "SSRF remains a relevant WordPress risk even outside the 2025 Top Ten list.",
+            "category": "exposure",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "Extended security checks",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-EXT-002",
+            "test_key": "transport.security_headers",
+            "title": "Security headers present",
+            "description": "HSTS, framing protection and referrer policy should be present where applicable.",
+            "rationale": "Security misconfiguration includes missing transport and browser protections.",
+            "category": "cryptography",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A02:2025 Security Misconfiguration",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "OWASP-A02-003",
+            "test_key": "transport.hsts_present",
+            "title": "HTTP Strict Transport Security enabled",
+            "description": "HSTS should be configured to enforce HTTPS for returning visitors.",
+            "rationale": "Missing HSTS allows downgrade attacks on subsequent connections.",
+            "category": "cryptography",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "verification_type": "A",
+            "owasp_reference": "A02:2025 Security Misconfiguration",
+            "source": {
+                "authority": "OWASP Top 10",
+                "version": "2025",
+                "last_legal_review": "2026-08-31"
+            }
+        }
+    ],
+    "label": "OWASP Top 10:2025 WordPress Profile",
+    "disclaimer": "Technical readiness profile only; not an OWASP certification."
+}

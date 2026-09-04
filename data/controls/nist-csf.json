@@ -1,0 +1,255 @@
+{
+    "framework": "nist-csf",
+    "version": "1.0.0",
+    "controls": [
+        {
+            "id": "NIST-GV-001",
+            "title": "Governance policy documented",
+            "description": "Security and privacy governance policies must be documented.",
+            "rationale": "Governance establishes organizational context.",
+            "category": "governance",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "test_key": "governance.policy_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            },
+            "manual_review_instructions": "Document security governance policies for the WordPress site and hosting environment."
+        },
+        {
+            "id": "NIST-ID-001",
+            "title": "Administrator inventory",
+            "description": "Privileged accounts must be inventoried and justified.",
+            "rationale": "Asset management supports access control.",
+            "category": "access",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "access.administrator_inventory",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-PR-001",
+            "title": "HTTPS enabled",
+            "description": "Data in transit must be protected with HTTPS.",
+            "rationale": "Protects confidentiality and integrity in transit.",
+            "category": "security",
+            "severity": "CRITICAL",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "transport.https_enabled",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-PR-002",
+            "title": "Security headers",
+            "description": "Browser security headers should be configured.",
+            "rationale": "Reduces common web misconfigurations.",
+            "category": "security",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "transport.security_headers",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-PR-003",
+            "title": "REST user enumeration restricted",
+            "description": "User enumeration via REST should be blocked.",
+            "rationale": "Prevents unauthorized information disclosure.",
+            "category": "exposure",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "exposure.rest_user_enumeration",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-PR-004",
+            "title": "Debug mode disabled",
+            "description": "Debug modes must not be enabled in production.",
+            "rationale": "Debug output can leak sensitive information.",
+            "category": "exposure",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "exposure.debug_mode_disabled",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-PR-005",
+            "title": "Plugin posture reviewed",
+            "description": "Installed plugins should be maintained and supported.",
+            "rationale": "Vulnerable software increases risk.",
+            "category": "platform",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "platform.plugin_posture",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-DE-001",
+            "title": "Activity logging available",
+            "description": "Security-relevant events should be logged.",
+            "rationale": "Detection depends on observable events.",
+            "category": "logging",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "test_key": "logging.activity_log_available",
+            "verification_type": "H",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            },
+            "manual_review_instructions": "Confirm WordPress activity logging or equivalent is enabled."
+        },
+        {
+            "id": "NIST-DE-002",
+            "title": "Monitoring schedule configured",
+            "description": "Periodic technical audits should be scheduled.",
+            "rationale": "Continuous monitoring supports detection.",
+            "category": "monitoring",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "logging.monitoring_schedule",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-RS-001",
+            "title": "Incident response plan",
+            "description": "Incident response procedures must be documented.",
+            "rationale": "Response planning limits breach impact.",
+            "category": "governance",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            },
+            "manual_review_instructions": "Document incident response steps for WordPress compromise scenarios."
+        },
+        {
+            "id": "NIST-RC-001",
+            "title": "Backup recovery tested",
+            "description": "Backups must exist and be tested periodically.",
+            "rationale": "Recovery supports resilience objectives.",
+            "category": "backup",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "test_key": "governance.manual_evidence",
+            "verification_type": "H",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            },
+            "manual_review_instructions": "Document backup frequency and restore testing."
+        },
+        {
+            "id": "NIST-GV-002",
+            "title": "Risk assessment performed",
+            "description": "Periodic risk assessments must be conducted.",
+            "rationale": "Risk management informs control selection.",
+            "category": "governance",
+            "severity": "HIGH",
+            "capability": "MANUAL_REVIEW",
+            "test_key": "governance.threat_model_review",
+            "verification_type": "H",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            },
+            "manual_review_instructions": "Document site-level risk assessment outcomes."
+        },
+        {
+            "id": "NIST-PR-006",
+            "title": "MFA for privileged access",
+            "description": "Multi-factor authentication should protect admin access.",
+            "rationale": "Strengthens authentication for privileged users.",
+            "category": "access",
+            "severity": "HIGH",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "access.mfa_integration",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-PR-007",
+            "title": "Consent mechanism present",
+            "description": "Where consent is required, a mechanism must exist.",
+            "rationale": "Supports privacy-related protect functions.",
+            "category": "consent",
+            "severity": "MEDIUM",
+            "capability": "AUTOMATIC_VERIFY",
+            "test_key": "consent.mechanism_present",
+            "verification_type": "A",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            }
+        },
+        {
+            "id": "NIST-GV-003",
+            "title": "Legal scope confirmed",
+            "description": "Confirm which CSF outcomes apply to this site.",
+            "rationale": "Scope determines applicable subcategories.",
+            "category": "governance",
+            "severity": "MEDIUM",
+            "capability": "LEGAL_REVIEW",
+            "test_key": "governance.policy_evidence",
+            "verification_type": "L",
+            "source": {
+                "authority": "NIST CSF",
+                "version": "2.0",
+                "last_legal_review": "2026-08-31"
+            },
+            "manual_review_instructions": "Confirm applicable CSF Functions and Categories with stakeholders.",
+            "applicability": {
+                "requires_confirmation": true
+            }
+        }
+    ]
+}
