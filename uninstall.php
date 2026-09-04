@@ -15,22 +15,9 @@ require_once __DIR__ . '/src/Support/Autoloader.php';
 
 ComplyOps\Support\Autoloader::register( __DIR__ . '/src/' );
 
-use ComplyOps\Consent\ConsentSettings;
-use ComplyOps\Control\ControlOverrideService;
 use ComplyOps\Database\Schema;
-use ComplyOps\Enforcement\EnforcementSettings;
-use ComplyOps\Enforcement\PiiSettings;
-use ComplyOps\Integration\Google\GoogleOAuthTokens;
-use ComplyOps\Integration\GoogleAnalytics\GoogleAnalyticsSettings;
-use ComplyOps\Integration\GoogleTagManager\GoogleTagManagerSettings;
-use ComplyOps\Evidence\EvidenceRetentionService;
-use ComplyOps\Framework\FrameworkPackService;
 use ComplyOps\Monitoring\MonitoringScheduler;
-use ComplyOps\PublicStatus\PublicStatusSettings;
-use ComplyOps\REST\SettingsController;
 use ComplyOps\Security\Capabilities;
-use ComplyOps\Verification\BrowserVerificationSettings;
-use ComplyOps\WordPress\WordPressPrivacySettings;
 
 /**
  * Recursively remove a directory under uploads.
@@ -68,39 +55,22 @@ function complyops_uninstall_remove_directory( string $directory ): void {
 }
 
 wp_clear_scheduled_hook( MonitoringScheduler::CRON_HOOK );
-delete_transient( 'complyops_drift_notice' );
-
-$complyops_options = array(
-	Schema::OPTION_KEY,
-	ConsentSettings::OPTION_KEY,
-	EnforcementSettings::OPTION_KEY,
-	GoogleAnalyticsSettings::OPTION_KEY,
-	GoogleOAuthTokens::OPTION_KEY,
-	GoogleTagManagerSettings::OPTION_KEY,
-	PiiSettings::OPTION_KEY,
-	FrameworkPackService::OPTION_INSTALLED,
-	FrameworkPackService::OPTION_ACTIVATIONS,
-	FrameworkPackService::OPTION_INACTIVE,
-	ControlOverrideService::OPTION,
-	MonitoringScheduler::OPTION_INTERVAL,
-	EvidenceRetentionService::OPTION_KEY,
-	BrowserVerificationSettings::OPTION_KEY,
-	WordPressPrivacySettings::OPTION_KEY,
-	PublicStatusSettings::OPTION_KEY,
-	SettingsController::SETUP_COMPLETE_OPTION,
-	SettingsController::SETUP_DISMISSED_FOREVER_OPTION,
-	SettingsController::SETUP_PENDING_OPTION,
-	SettingsController::SETUP_BANNER_DECIDED_OPTION,
-	SettingsController::TUTORIAL_COMPLETE_OPTION,
-	SettingsController::TUTORIAL_DISMISSED_FOREVER_OPTION,
-	\ComplyOps\Notification\NotificationService::OPTION_KEY,
-);
-
-foreach ( $complyops_options as $complyops_option ) {
-	delete_option( $complyops_option );
-}
 
 global $wpdb;
+
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Uninstall removes all plugin options/transients.
+$wpdb->query(
+	$wpdb->prepare(
+		"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s OR option_name LIKE %s",
+		$wpdb->esc_like( 'complyops_' ) . '%',
+		$wpdb->esc_like( '_transient_complyops_' ) . '%',
+		$wpdb->esc_like( '_transient_timeout_complyops_' ) . '%'
+	)
+);
+
+if ( function_exists( 'delete_metadata' ) ) {
+	delete_metadata( 'user', 0, 'complyops_last_login', '', true );
+}
 
 foreach ( array_keys( Schema::tables() ) as $complyops_table ) {
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange -- Uninstall drops plugin-owned tables from Schema.

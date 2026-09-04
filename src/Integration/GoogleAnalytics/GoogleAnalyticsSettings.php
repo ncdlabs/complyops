@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use ComplyOps\Integration\Google\GoogleOAuthConfig;
+
 /**
  * Manual Google Analytics connection settings for Admin API integration.
  */
@@ -21,8 +23,14 @@ final class GoogleAnalyticsSettings {
 	 */
 	public function all(): array {
 		$stored = get_option( self::OPTION_KEY, array() );
+		$merged = array_merge( $this->defaults(), is_array( $stored ) ? $stored : array() );
 
-		return array_merge( $this->defaults(), is_array( $stored ) ? $stored : array() );
+		if ( '' !== (string) ( $merged['oauth_client_secret'] ?? '' ) ) {
+			$merged['oauth_client_secret'] = '';
+			update_option( self::OPTION_KEY, $this->sanitize( $merged ), false );
+		}
+
+		return $merged;
 	}
 
 	/**
@@ -36,6 +44,7 @@ final class GoogleAnalyticsSettings {
 
 		$oauth                               = ( new GoogleAnalyticsOAuthService() )->public_status();
 		$settings['oauth']                   = $oauth;
+		// Secrets come from wp-config / filters only; never report option-stored secrets.
 		$settings['oauth_client_secret_set'] = '' !== $this->oauth_client_secret();
 		$settings['configured']              = $this->is_configured();
 
@@ -59,7 +68,9 @@ final class GoogleAnalyticsSettings {
 	}
 
 	public function oauth_client_secret(): string {
-		return (string) ( $this->all()['oauth_client_secret'] ?? '' );
+		$config = ( new GoogleOAuthConfig() )->resolve();
+
+		return (string) ( $config['client_secret'] ?? '' );
 	}
 
 	public function is_configured(): bool {
@@ -78,13 +89,8 @@ final class GoogleAnalyticsSettings {
 	public function save( array $settings ): void {
 		$current = $this->all();
 		$merged  = array_merge( $current, $settings );
-
-		if ( array_key_exists( 'oauth_client_secret', $settings ) ) {
-			$secret = trim( (string) $settings['oauth_client_secret'] );
-			if ( '' === $secret ) {
-				$merged['oauth_client_secret'] = $current['oauth_client_secret'] ?? '';
-			}
-		}
+		// Never persist OAuth client secrets in options (use constants / filters).
+		$merged['oauth_client_secret'] = '';
 
 		update_option( self::OPTION_KEY, $this->sanitize( $merged ), false );
 	}
@@ -114,7 +120,7 @@ final class GoogleAnalyticsSettings {
 			'property_id'                 => preg_replace( '/\D/', '', (string) ( $settings['property_id'] ?? '' ) ),
 			'account_email'               => sanitize_email( (string) ( $settings['account_email'] ?? '' ) ),
 			'oauth_client_id'             => sanitize_text_field( (string) ( $settings['oauth_client_id'] ?? '' ) ),
-			'oauth_client_secret'         => sanitize_text_field( (string) ( $settings['oauth_client_secret'] ?? '' ) ),
+			'oauth_client_secret'         => '',
 			'oauth_connected_at'          => sanitize_text_field( (string) ( $settings['oauth_connected_at'] ?? '' ) ),
 			'oauth_property_display_name' => sanitize_text_field( (string) ( $settings['oauth_property_display_name'] ?? '' ) ),
 		);

@@ -65,12 +65,15 @@ final class BrowserScanTarget {
 			return $url;
 		}
 
-		if ( ! self::host_matches_site( (string) $filtered_parts['host'] )
-			&& ! self::is_loopback_host( (string) $filtered_parts['host'] ) ) {
-			return $url;
+		if ( self::host_matches_site( (string) $filtered_parts['host'] ) ) {
+			return $filtered;
 		}
 
-		return $filtered;
+		if ( self::is_loopback_host( (string) $filtered_parts['host'] ) && self::site_uses_loopback() ) {
+			return $filtered;
+		}
+
+		return $url;
 	}
 
 	private static function is_allowed_host( string $host ): bool {

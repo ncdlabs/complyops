@@ -14,7 +14,10 @@ export function PackDisclaimer( { text } ) {
 
 export function NonCertificationNotice() {
 	return (
-		<p className="complyops-pack-disclaimer complyops-pack-disclaimer--global" role="note">
+		<p
+			className="complyops-pack-disclaimer complyops-pack-disclaimer--global"
+			role="note"
+		>
 			{ __(
 				'Scores and findings describe technical readiness only. They are not legal certification or compliance guarantees.',
 				'complyops'

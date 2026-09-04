@@ -76,7 +76,7 @@ final class BrowserVerificationRequestClient {
 		$site_url   = isset( $data['site_url'] ) && is_string( $data['site_url'] ) ? trim( $data['site_url'] ) : '';
 		$expires_at = isset( $data['expires_at'] ) && is_string( $data['expires_at'] ) ? trim( $data['expires_at'] ) : '';
 
-		if ( '' === $request_id || '' === $form_url ) {
+		if ( '' === $request_id || '' === $form_url || ! $this->is_allowed_form_url( $form_url ) ) {
 			return null;
 		}
 
@@ -86,6 +86,28 @@ final class BrowserVerificationRequestClient {
 			'site_url'   => $site_url,
 			'expires_at' => $expires_at,
 		);
+	}
+
+	/**
+	 * Hosted request forms must stay on the ncdLabs request host.
+	 */
+	private function is_allowed_form_url( string $form_url ): bool {
+		$form_parts = wp_parse_url( $form_url );
+		$init_parts = wp_parse_url( $this->init_url );
+
+		if ( ! is_array( $form_parts ) || ! is_array( $init_parts ) ) {
+			return false;
+		}
+
+		$form_scheme = strtolower( (string) ( $form_parts['scheme'] ?? '' ) );
+		$form_host   = strtolower( (string) ( $form_parts['host'] ?? '' ) );
+		$init_host   = strtolower( (string) ( $init_parts['host'] ?? '' ) );
+
+		if ( 'https' !== $form_scheme || '' === $form_host || '' === $init_host ) {
+			return false;
+		}
+
+		return $form_host === $init_host;
 	}
 
 	/**

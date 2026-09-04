@@ -95,6 +95,7 @@ export default function NotificationBell() {
 
 	const count = items.length;
 	const countLabel = sprintf(
+		/* translators: %d: number of unread notifications */
 		_n(
 			'%d unread notification',
 			'%d unread notifications',
@@ -145,9 +146,7 @@ export default function NotificationBell() {
 				aria-controls={ open ? 'complyops-notice-panel' : undefined }
 				aria-haspopup="true"
 				aria-label={
-					count > 0
-						? countLabel
-						: __( 'Notifications', 'complyops' )
+					count > 0 ? countLabel : __( 'Notifications', 'complyops' )
 				}
 			>
 				<BellIcon />

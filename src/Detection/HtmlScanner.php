@@ -9,16 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use ComplyOps\Verification\BrowserScanTarget;
+
 /**
  * Fetches and scans public HTML for scripts and embeds.
  */
 final class HtmlScanner {
 
+	private const MAX_REDIRECTS = 3;
+
 	/**
 	 * @return array{html: string|null, scripts: list<string>, iframes: list<string>, error: string|null}
 	 */
 	public function scan_url( string $url ): array {
-		if ( ! function_exists( 'wp_remote_get' ) ) {
+		if ( ! function_exists( 'wp_safe_remote_get' ) ) {
 			return array(
 				'html'    => null,
 				'scripts' => array(),
@@ -27,43 +31,115 @@ final class HtmlScanner {
 			);
 		}
 
-		$response = wp_remote_get(
-			$url,
-			array(
-				'timeout'     => 15,
-				'redirection' => 3,
-				'user-agent'  => 'ComplyOps Discovery/1.0',
-			)
-		);
+		$current = BrowserScanTarget::resolve( $url );
 
-		if ( is_wp_error( $response ) ) {
+		if ( null === $current ) {
 			return array(
 				'html'    => null,
 				'scripts' => array(),
 				'iframes' => array(),
-				'error'   => $response->get_error_message(),
+				'error'   => 'URL is not an allowed site target.',
 			);
 		}
 
-		$code = (int) wp_remote_retrieve_response_code( $response );
+		for ( $hop = 0; $hop <= self::MAX_REDIRECTS; $hop++ ) {
+			$response = wp_safe_remote_get(
+				$current,
+				array(
+					'timeout'            => 15,
+					'redirection'        => 0,
+					'reject_unsafe_urls' => true,
+					'user-agent'         => 'ComplyOps Discovery/1.0',
+				)
+			);
 
-		if ( $code < 200 || $code >= 400 ) {
+			if ( is_wp_error( $response ) ) {
+				return array(
+					'html'    => null,
+					'scripts' => array(),
+					'iframes' => array(),
+					'error'   => $response->get_error_message(),
+				);
+			}
+
+			$code = (int) wp_remote_retrieve_response_code( $response );
+
+			if ( $code >= 300 && $code < 400 ) {
+				$location = wp_remote_retrieve_header( $response, 'location' );
+				$location = is_array( $location ) ? (string) ( $location[0] ?? '' ) : (string) $location;
+				$next     = '' !== $location ? BrowserScanTarget::resolve( $this->absolute_redirect_url( $current, $location ) ) : null;
+
+				if ( null === $next || $hop === self::MAX_REDIRECTS ) {
+					return array(
+						'html'    => null,
+						'scripts' => array(),
+						'iframes' => array(),
+						'error'   => 'Redirect target is not an allowed site URL.',
+					);
+				}
+
+				$current = $next;
+				continue;
+			}
+
+			if ( $code < 200 || $code >= 400 ) {
+				return array(
+					'html'    => null,
+					'scripts' => array(),
+					'iframes' => array(),
+					'error'   => sprintf( 'HTTP %d response.', $code ),
+				);
+			}
+
+			$html = (string) wp_remote_retrieve_body( $response );
+
 			return array(
-				'html'    => null,
-				'scripts' => array(),
-				'iframes' => array(),
-				'error'   => sprintf( 'HTTP %d response.', $code ),
+				'html'    => $html,
+				'scripts' => $this->extract_script_sources( $html ),
+				'iframes' => $this->extract_iframe_sources( $html ),
+				'error'   => null,
 			);
 		}
-
-		$html = (string) wp_remote_retrieve_body( $response );
 
 		return array(
-			'html'    => $html,
-			'scripts' => $this->extract_script_sources( $html ),
-			'iframes' => $this->extract_iframe_sources( $html ),
-			'error'   => null,
+			'html'    => null,
+			'scripts' => array(),
+			'iframes' => array(),
+			'error'   => 'Too many redirects.',
 		);
+	}
+
+	private function absolute_redirect_url( string $current, string $location ): string {
+		$location = trim( $location );
+
+		if ( '' === $location ) {
+			return '';
+		}
+
+		if ( preg_match( '#^https?://#i', $location ) ) {
+			return $location;
+		}
+
+		$parts = wp_parse_url( $current );
+
+		if ( ! is_array( $parts ) || empty( $parts['scheme'] ) || empty( $parts['host'] ) ) {
+			return $location;
+		}
+
+		$origin = $parts['scheme'] . '://' . $parts['host'];
+
+		if ( ! empty( $parts['port'] ) ) {
+			$origin .= ':' . $parts['port'];
+		}
+
+		if ( str_starts_with( $location, '/' ) ) {
+			return $origin . $location;
+		}
+
+		$path = (string) ( $parts['path'] ?? '/' );
+		$base = rtrim( substr( $path, 0, (int) strrpos( $path, '/' ) + 1 ), '/' );
+
+		return $origin . $base . '/' . ltrim( $location, '/' );
 	}
 
 	/**

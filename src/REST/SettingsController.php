@@ -357,7 +357,11 @@ final class SettingsController {
 		$return_url = $request->get_param( 'return_url' );
 		$return_url = is_string( $return_url ) && '' !== trim( $return_url )
 			? esc_url_raw( $return_url )
-			: admin_url( 'admin.php?page=complyops-integrations&pack=browser-verification' );
+			: '';
+
+		if ( '' === $return_url || ! $this->is_allowed_browser_verification_return_url( $return_url ) ) {
+			$return_url = admin_url( 'admin.php?page=complyops-integrations&pack=browser-verification' );
+		}
 
 		$current_user = wp_get_current_user();
 		$admin_email  = $current_user instanceof \WP_User && is_email( $current_user->user_email )
@@ -375,6 +379,39 @@ final class SettingsController {
 		}
 
 		return new WP_REST_Response( $result );
+	}
+
+	/**
+	 * Only allow return URLs on this site's wp-admin host/path.
+	 */
+	private function is_allowed_browser_verification_return_url( string $url ): bool {
+		$parts = wp_parse_url( $url );
+		$admin = wp_parse_url( admin_url( '/' ) );
+
+		if ( ! is_array( $parts ) || ! is_array( $admin ) ) {
+			return false;
+		}
+
+		$scheme = strtolower( (string) ( $parts['scheme'] ?? '' ) );
+		$host   = strtolower( (string) ( $parts['host'] ?? '' ) );
+		$path   = (string) ( $parts['path'] ?? '' );
+
+		$admin_scheme = strtolower( (string) ( $admin['scheme'] ?? '' ) );
+		$admin_host   = strtolower( (string) ( $admin['host'] ?? '' ) );
+		$admin_path   = (string) ( $admin['path'] ?? '/wp-admin/' );
+
+		if ( ! in_array( $scheme, array( 'http', 'https' ), true ) || $scheme !== $admin_scheme ) {
+			return false;
+		}
+
+		if ( $host !== $admin_host ) {
+			return false;
+		}
+
+		$admin_path = '/' . trim( $admin_path, '/' ) . '/';
+		$path       = '/' . ltrim( $path, '/' );
+
+		return str_starts_with( $path, rtrim( $admin_path, '/' ) );
 	}
 
 	public function claim_browser_verification_request( WP_REST_Request $request ): WP_REST_Response|WP_Error {

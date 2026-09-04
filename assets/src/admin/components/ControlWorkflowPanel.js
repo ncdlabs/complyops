@@ -1,17 +1,13 @@
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import {
-	updateControlApplicability,
-	saveManualEvidence,
-} from '../api';
+import { updateControlApplicability, saveManualEvidence } from '../api';
 import { useNotify } from './ui';
 
 function needsApplicabilityConfirmation( finding ) {
 	const type = String( finding?.verification_type || '' ).toUpperCase();
 
 	return (
-		type === 'L' ||
-		finding?.applicability?.requires_confirmation === true
+		type === 'L' || finding?.applicability?.requires_confirmation === true
 	);
 }
 
@@ -25,11 +21,7 @@ function workflowControlId( item ) {
 	return item?.control_id || item?.id || '';
 }
 
-export function ControlWorkflowPanel( {
-	finding,
-	canManage,
-	onUpdated,
-} ) {
+export function ControlWorkflowPanel( { finding, canManage, onUpdated } ) {
 	const notify = useNotify();
 	const [ saving, setSaving ] = useState( false );
 	const [ applicabilityState, setApplicabilityState ] = useState(
@@ -62,20 +54,15 @@ export function ControlWorkflowPanel( {
 		setSaving( true );
 
 		try {
-			const response = await updateControlApplicability(
-				controlId,
-				{
-					framework,
-					state: applicabilityState,
-					reason: applicabilityReason,
-				}
-			);
+			const response = await updateControlApplicability( controlId, {
+				framework,
+				state: applicabilityState,
+				reason: applicabilityReason,
+			} );
 			onUpdated?.( {
 				applicability: response.applicability,
 			} );
-			notify.success(
-				__( 'Applicability updated.', 'complyops' )
-			);
+			notify.success( __( 'Applicability updated.', 'complyops' ) );
 		} catch ( error ) {
 			notify.error(
 				error?.message ||
@@ -100,9 +87,7 @@ export function ControlWorkflowPanel( {
 				manual_evidence: record,
 				status: record.status || 'PASS',
 			} );
-			notify.success(
-				__( 'Manual evidence recorded.', 'complyops' )
-			);
+			notify.success( __( 'Manual evidence recorded.', 'complyops' ) );
 		} catch ( error ) {
 			notify.error(
 				error?.message ||

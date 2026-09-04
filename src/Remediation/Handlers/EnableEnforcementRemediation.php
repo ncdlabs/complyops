@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use ComplyOps\Consent\ConsentSettings;
 use ComplyOps\Enforcement\EnforcementSettings;
 use ComplyOps\Remediation\AbstractRemediationHandler;
 
@@ -19,6 +20,7 @@ final class EnableEnforcementRemediation extends AbstractRemediationHandler {
 
 	public function __construct(
 		private readonly EnforcementSettings $settings = new EnforcementSettings(),
+		private readonly ConsentSettings $consent = new ConsentSettings(),
 	) {
 	}
 
@@ -31,7 +33,7 @@ final class EnableEnforcementRemediation extends AbstractRemediationHandler {
 	}
 
 	public function description(): string {
-		return __( 'Enables Consent Mode v2, blocks GA/GTM before consent, and denies advertising signals by default.', 'complyops' );
+		return __( 'Enables native consent, Consent Mode v2, blocks GA/GTM before consent, and denies advertising signals by default.', 'complyops' );
 	}
 
 	public function control_ids(): array {
@@ -50,30 +52,47 @@ final class EnableEnforcementRemediation extends AbstractRemediationHandler {
 
 	public function capture_state(): array {
 		return array(
+			'consent'     => $this->consent->all(),
 			'enforcement' => $this->settings->all(),
 		);
 	}
 
 	public function apply(): array {
+		$this->consent->save(
+			array_merge(
+				$this->consent->all(),
+				array(
+					'enabled' => true,
+				)
+			)
+		);
+
 		$this->settings->save(
 			array_merge(
 				$this->settings->all(),
 				array(
-					'enabled'                   => true,
-					'consent_mode_enabled'      => true,
-					'block_ga_before_consent'   => true,
-					'block_gtm_before_consent'  => true,
-					'deny_ad_signals_by_default'=> true,
+					'enabled'                    => true,
+					'consent_mode_enabled'       => true,
+					'block_ga_before_consent'    => true,
+					'block_gtm_before_consent'   => true,
+					'deny_ad_signals_by_default' => true,
 				)
 			)
 		);
 
 		return array(
+			'consent'     => $this->consent->all(),
 			'enforcement' => $this->settings->all(),
 		);
 	}
 
 	public function rollback( array $before_state ): void {
+		$consent = $before_state['consent'] ?? null;
+
+		if ( is_array( $consent ) ) {
+			$this->consent->save( $consent );
+		}
+
 		$enforcement = $before_state['enforcement'] ?? null;
 
 		if ( is_array( $enforcement ) ) {
@@ -85,6 +104,12 @@ final class EnableEnforcementRemediation extends AbstractRemediationHandler {
 		$current = $this->settings->all();
 
 		return array(
+			array(
+				'key'    => 'consent.enabled',
+				'label'  => __( 'Native consent manager', 'complyops' ),
+				'before' => $this->consent->is_enabled(),
+				'after'  => true,
+			),
 			array(
 				'key'    => 'enforcement.enabled',
 				'label'  => __( 'Enforcement enabled', 'complyops' ),

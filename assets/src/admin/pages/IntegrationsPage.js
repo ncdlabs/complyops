@@ -45,9 +45,7 @@ function obfuscateTokenPreview( token ) {
 	}
 
 	return (
-		value.slice( 0, 3 ) +
-		'•'.repeat( value.length - 6 ) +
-		value.slice( -3 )
+		value.slice( 0, 3 ) + '•'.repeat( value.length - 6 ) + value.slice( -3 )
 	);
 }
 
@@ -1133,12 +1131,16 @@ function GoogleTagManagerContainerPicker( {
 		setLoadError( null );
 
 		try {
-			const response = await selectGoogleTagManagerContainer( selectedId );
+			const response =
+				await selectGoogleTagManagerContainer( selectedId );
 			onContainerAttached( response );
 		} catch ( err ) {
 			setLoadError(
 				err?.message ||
-					__( 'Could not attach the selected container.', 'complyops' )
+					__(
+						'Could not attach the selected container.',
+						'complyops'
+					)
 			);
 		} finally {
 			setSaving( false );
@@ -1191,10 +1193,13 @@ function GoogleTagManagerContainerPicker( {
 										name="complyops_gtm_container"
 										value={ container.container_id }
 										checked={
-											selectedId === container.container_id
+											selectedId ===
+											container.container_id
 										}
 										onChange={ () =>
-											setSelectedId( container.container_id )
+											setSelectedId(
+												container.container_id
+											)
 										}
 										disabled={ readOnly || saving }
 									/>
@@ -1210,7 +1215,9 @@ function GoogleTagManagerContainerPicker( {
 													'complyops'
 												) }
 											{ ' · ' }
-											<code>{ container.container_id }</code>
+											<code>
+												{ container.container_id }
+											</code>
 										</span>
 									</span>
 								</label>
@@ -1277,8 +1284,7 @@ function GoogleTagManagerConnectionCard( {
 	const [ isChangingContainer, setIsChangingContainer ] = useState( false );
 
 	const isOAuthConnected = !! oauth?.connected;
-	const isFullyConnected =
-		isOAuthConnected && !! oauth?.container_selected;
+	const isFullyConnected = isOAuthConnected && !! oauth?.container_selected;
 
 	useEffect( () => {
 		if ( isFullyConnected ) {
@@ -2637,8 +2643,14 @@ export default function IntegrationsPage() {
 
 			try {
 				const response = isGtm
-					? await completeGoogleTagManagerOAuth( oauthCode, oauthState )
-					: await completeGoogleAnalyticsOAuth( oauthCode, oauthState );
+					? await completeGoogleTagManagerOAuth(
+							oauthCode,
+							oauthState
+					  )
+					: await completeGoogleAnalyticsOAuth(
+							oauthCode,
+							oauthState
+					  );
 				if ( cancelled ) {
 					return;
 				}
@@ -2662,7 +2674,10 @@ export default function IntegrationsPage() {
 						);
 					} else {
 						notify.success(
-							__( 'Google Tag Manager is connected.', 'complyops' )
+							__(
+								'Google Tag Manager is connected.',
+								'complyops'
+							)
 						);
 					}
 				} else {

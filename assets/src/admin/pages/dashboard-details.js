@@ -102,21 +102,34 @@ export function DashboardDetailScreen( {
 					<div className="complyops-dashboard__hero complyops-dashboard__hero--scores">
 						<div className="complyops-panel">
 							<SectionHeader
-								title={ __( 'Technical readiness', 'complyops' ) }
+								title={ __(
+									'Technical readiness',
+									'complyops'
+								) }
 							/>
-							<ScoreRing score={ audit.technical_score ?? audit.score } />
+							<ScoreRing
+								score={ audit.technical_score ?? audit.score }
+							/>
 						</div>
 						<div className="complyops-panel">
 							<SectionHeader
-								title={ __( 'Evidence readiness', 'complyops' ) }
+								title={ __(
+									'Evidence readiness',
+									'complyops'
+								) }
 							/>
 							<ScoreRing score={ audit.evidence_score ?? 0 } />
 						</div>
 						<div className="complyops-panel">
 							<SectionHeader
-								title={ __( 'Legal review readiness', 'complyops' ) }
+								title={ __(
+									'Legal review readiness',
+									'complyops'
+								) }
 							/>
-							<ScoreRing score={ audit.legal_review_score ?? 0 } />
+							<ScoreRing
+								score={ audit.legal_review_score ?? 0 }
+							/>
 						</div>
 					</div>
 					<div className="complyops-dashboard__hero">

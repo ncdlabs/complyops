@@ -3,7 +3,7 @@
         'name' => 'ncdlabs/complyops',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3a6ea4d338a5a03fa45ab038b800dee204f1cc33',
+        'reference' => '2a81a7d462998f728c020ad8d86deda46e374546',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'ncdlabs/complyops' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3a6ea4d338a5a03fa45ab038b800dee204f1cc33',
+            'reference' => '2a81a7d462998f728c020ad8d86deda46e374546',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

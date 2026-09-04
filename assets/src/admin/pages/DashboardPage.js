@@ -468,19 +468,34 @@ export default function DashboardPage( { config } ) {
 							<>
 								<div className="complyops-metrics">
 									<StatCard
-										label={ __( 'Technical readiness', 'complyops' ) }
-										value={ `${ audit.technical_score ?? audit.score ?? 0 }%` }
+										label={ __(
+											'Technical readiness',
+											'complyops'
+										) }
+										value={ `${
+											audit.technical_score ??
+											audit.score ??
+											0
+										}%` }
 										detail={
 											frameworkSummary ||
-											__( 'Automatic controls', 'complyops' )
+											__(
+												'Automatic controls',
+												'complyops'
+											)
 										}
 										tone="success"
 										icon="dashicons-chart-area"
 										href={ detailUrl( 'readiness' ) }
 									/>
 									<StatCard
-										label={ __( 'Evidence readiness', 'complyops' ) }
-										value={ `${ audit.evidence_score ?? 0 }%` }
+										label={ __(
+											'Evidence readiness',
+											'complyops'
+										) }
+										value={ `${
+											audit.evidence_score ?? 0
+										}%` }
 										detail={ __(
 											'Human-attested controls',
 											'complyops'
@@ -489,8 +504,13 @@ export default function DashboardPage( { config } ) {
 										href={ detailUrl( 'readiness' ) }
 									/>
 									<StatCard
-										label={ __( 'Legal review', 'complyops' ) }
-										value={ `${ audit.legal_review_score ?? 0 }%` }
+										label={ __(
+											'Legal review',
+											'complyops'
+										) }
+										value={ `${
+											audit.legal_review_score ?? 0
+										}%` }
 										detail={ __(
 											'Legal and policy controls',
 											'complyops'

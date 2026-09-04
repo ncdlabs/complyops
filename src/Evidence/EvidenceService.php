@@ -216,15 +216,33 @@ final class EvidenceService {
 			}
 		}
 
+		$audit_summary = $this->serialize_audit_for_export( $audit );
+
 		return array(
 			'exported_at'              => gmdate( 'c' ),
 			'site_url'                 => function_exists( 'home_url' ) ? home_url() : null,
 			'plugin_version'           => defined( 'COMPLYOPS_VERSION' ) ? COMPLYOPS_VERSION : null,
 			'framework'                => $framework,
-			'audit_summary'            => null !== $audit ? $audit->to_array() : null,
+			'audit_summary'            => $audit_summary,
 			'records'                  => $list['records'],
 			'unresolved_manual_review' => $manual_review,
 		);
+	}
+
+	/**
+	 * Portable export payload for an audit (omits discovery snapshot inventory).
+	 *
+	 * @return array<string, mixed>|null
+	 */
+	public function serialize_audit_for_export( ?AuditRun $audit ): ?array {
+		if ( null === $audit ) {
+			return null;
+		}
+
+		$audit_summary = $audit->to_array();
+		unset( $audit_summary['discovery_snapshot'] );
+
+		return $audit_summary;
 	}
 
 	private function capture_expected_state( string $framework, AuditRun $audit ): void {

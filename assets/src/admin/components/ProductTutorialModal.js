@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from '@wordpress/element';
+import {
+	useCallback,
+	useEffect,
+	useId,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { getSettings, updateSettings } from '../api';
 import { adminPageUrl, getQueryParam } from '../url-state';

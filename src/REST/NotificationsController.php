@@ -43,7 +43,7 @@ final class NotificationsController {
 			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'dismiss_all' ),
-				'permission_callback' => static fn (): bool => Capabilities::can_view(),
+				'permission_callback' => static fn (): bool => Capabilities::can_manage(),
 			)
 		);
 
@@ -53,7 +53,7 @@ final class NotificationsController {
 			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'dismiss' ),
-				'permission_callback' => static fn (): bool => Capabilities::can_view(),
+				'permission_callback' => static fn (): bool => Capabilities::can_manage(),
 				'args'                => array(
 					'id' => array(
 						'type'     => 'string',

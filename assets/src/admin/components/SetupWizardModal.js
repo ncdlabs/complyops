@@ -251,10 +251,7 @@ function SetupWizardPreviewLink( { href, label } ) {
 
 function StepProgress( { step } ) {
 	return (
-		<p
-			className="complyops-setup-wizard__progress"
-			aria-live="polite"
-		>
+		<p className="complyops-setup-wizard__progress" aria-live="polite">
 			{ sprintf(
 				/* translators: 1: current step number, 2: total steps */
 				__( 'Step %1$d of %2$d', 'complyops' ),
@@ -302,9 +299,7 @@ export default function SetupWizardModal() {
 				}
 
 				return {
-					enabled: wizard.banner_decided
-						? !! consent.enabled
-						: true,
+					enabled: wizard.banner_decided ? !! consent.enabled : true,
 					banner_headline: consent.banner_headline || '',
 					banner_description: consent.banner_description || '',
 					show_reopen_button:
@@ -312,8 +307,7 @@ export default function SetupWizardModal() {
 							? !! consent.show_reopen_button
 							: true,
 					show_site_logo: !! consent.show_site_logo,
-					site_logo_url:
-						consentPublic.banner?.site_logo_url || '',
+					site_logo_url: consentPublic.banner?.site_logo_url || '',
 					site_name: consentPublic.banner?.site_name || '',
 				};
 			} );
@@ -966,7 +960,7 @@ export default function SetupWizardModal() {
 		);
 	}
 
-	const nextLabel = (() => {
+	const nextLabel = ( () => {
 		if ( step === TOTAL_STEPS - 1 ) {
 			return saving
 				? __( 'Finishing…', 'complyops' )
@@ -978,7 +972,7 @@ export default function SetupWizardModal() {
 				: __( 'Run audit & next', 'complyops' );
 		}
 		return __( 'Next', 'complyops' );
-	})();
+	} )();
 
 	const wizardFooter = (
 		<>

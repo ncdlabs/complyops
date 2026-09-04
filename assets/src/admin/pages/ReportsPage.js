@@ -399,10 +399,7 @@ export default function ReportsPage() {
 									<thead>
 										<tr>
 											<th>
-												{ __(
-													'Control',
-													'complyops'
-												) }
+												{ __( 'Control', 'complyops' ) }
 											</th>
 											<th>
 												{ __( 'Status', 'complyops' ) }
@@ -450,7 +447,9 @@ export default function ReportsPage() {
 														}
 													/>
 												</td>
-												<td>{ item.observed || '—' }</td>
+												<td>
+													{ item.observed || '—' }
+												</td>
 											</tr>
 										) ) }
 									</tbody>
@@ -480,10 +479,7 @@ export default function ReportsPage() {
 									<thead>
 										<tr>
 											<th>
-												{ __(
-													'Control',
-													'complyops'
-												) }
+												{ __( 'Control', 'complyops' ) }
 											</th>
 											<th>
 												{ __( 'Status', 'complyops' ) }
@@ -518,7 +514,9 @@ export default function ReportsPage() {
 														) }
 													/>
 												</td>
-												<td>{ item.observed || '—' }</td>
+												<td>
+													{ item.observed || '—' }
+												</td>
 											</tr>
 										) ) }
 									</tbody>
@@ -545,9 +543,7 @@ export default function ReportsPage() {
 										<th>
 											{ __( 'Category', 'complyops' ) }
 										</th>
-										<th>
-											{ __( 'Status', 'complyops' ) }
-										</th>
+										<th>{ __( 'Status', 'complyops' ) }</th>
 										<th>
 											{ __( 'Severity', 'complyops' ) }
 										</th>
@@ -562,7 +558,9 @@ export default function ReportsPage() {
 											<td>
 												<ControlTitle
 													title={ item.title }
-													controlId={ item.control_id }
+													controlId={
+														item.control_id
+													}
 													capability={
 														item.capability
 													}
@@ -617,10 +615,7 @@ export default function ReportsPage() {
 												{ __( 'Action', 'complyops' ) }
 											</th>
 											<th>
-												{ __(
-													'Details',
-													'complyops'
-												) }
+												{ __( 'Details', 'complyops' ) }
 											</th>
 										</tr>
 									</thead>
@@ -643,9 +638,7 @@ export default function ReportsPage() {
 															'remediation_applied' }
 													</code>
 												</td>
-												<td>
-													{ item.message || '—' }
-												</td>
+												<td>{ item.message || '—' }</td>
 											</tr>
 										) ) }
 									</tbody>
@@ -656,10 +649,7 @@ export default function ReportsPage() {
 
 					<div className="complyops-panel">
 						<SectionHeader
-							title={ __(
-								'Verification evidence',
-								'complyops'
-							) }
+							title={ __( 'Verification evidence', 'complyops' ) }
 							description={ __(
 								'Evidence captured for the latest audit run.',
 								'complyops'
@@ -769,21 +759,15 @@ export default function ReportsPage() {
 							<table className="widefat striped complyops-table">
 								<thead>
 									<tr>
-										<th>
-											{ __( 'Audit', 'complyops' ) }
-										</th>
+										<th>{ __( 'Audit', 'complyops' ) }</th>
 										<th>
 											{ __( 'Completed', 'complyops' ) }
 										</th>
 										<th>
 											{ __( 'Framework', 'complyops' ) }
 										</th>
-										<th>
-											{ __( 'Score', 'complyops' ) }
-										</th>
-										<th>
-											{ __( 'Passed', 'complyops' ) }
-										</th>
+										<th>{ __( 'Score', 'complyops' ) }</th>
+										<th>{ __( 'Passed', 'complyops' ) }</th>
 										<th>
 											{ __( 'Exceptions', 'complyops' ) }
 										</th>
